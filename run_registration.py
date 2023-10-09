@@ -8,8 +8,8 @@ from skimage.io import imsave
 
 
 def main():
-    source_path =  'CD10_40x/479379.png' # Source path
-    target_path = 'HE_40x/474049.png'  # Target path
+    source_path =  '../data/CD10_40x/479379.png' # Source path
+    target_path = '../data/HE_40x/474049.png'  # Target path
 
     # source_landmarks_path = None # Source landmarks path
     # target_landmarks_path = None # Target landmarks path
