@@ -111,8 +111,8 @@ def round_up_to_odd(value):
     return int(np.ceil(value) // 2 * 2 + 1)
 
 def dice(image_1, image_2):
-    image_1 = image_1.astype(np.bool)
-    image_2 = image_2.astype(np.bool)
+    image_1 = image_1.astype(bool)
+    image_2 = image_2.astype(bool)
     return 2 * np.logical_and(image_1, image_2).sum() / (image_1.sum() + image_2.sum())
 
 def transform_landmarks(landmarks, u_x, u_y):

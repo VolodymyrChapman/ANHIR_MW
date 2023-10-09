@@ -63,6 +63,6 @@ RUN mamba env create -f env.yaml
 RUN /home/user/miniconda/bin/conda clean -ya
 
 # copy ANHIR source code
-RUN git clone https://github.com/MWod/ANHIR_MW.git
+RUN git clone https://github.com/VolodymyrChapman/ANHIR_MW.git
 # add init file so ANHIR_MW repo code visible 
 RUN touch ANHIR_MW/__init__.py
