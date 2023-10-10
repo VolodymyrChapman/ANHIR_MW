@@ -3,30 +3,73 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 import anhir_method as am
+import preprocessing
 import utils
-from skimage.io import imsave
+from skimage.io import imsave, imread
+from skimage.transform import resize
 
+from scipy import ndimage as nd
 
-def main():
-    source_path =  '../data/CD10_40x/479379.png' # Source path
-    target_path = '../data/HE_40x/474049.png'  # Target path
+def resample_single(source,resample_ratio):
+    s_y_size, s_x_size = source.shape
+    source = utils.resample(source, int(s_x_size/resample_ratio), int(s_y_size/resample_ratio))
+    return source
 
-    # source_landmarks_path = None # Source landmarks path
-    # target_landmarks_path = None # Target landmarks path
+def main(target_path, moving_path, outdir = ''):
 
-    # source_landmarks = utils.load_landmarks(source_landmarks_path)
-    # target_landmarks = utils.load_landmarks(target_landmarks_path)
-
-    source = utils.load_image(source_path)
+    source = utils.load_image(moving_path)
     target = utils.load_image(target_path)
 
-    p_source, p_target, ia_source, ng_source, nr_source, i_u_x, i_u_y, u_x_nr, u_y_nr, warp_resampled_landmarks, warp_original_landmarks, return_dict = am.anhir_method(target, source)
+    if source.shape[0] == 1:
+        source = source[0,:,:]
 
-    # transformed_source_landmarks = warp_original_landmarks(source_landmarks)
+    if target.shape[0] == 1:
+        target = target[0,:,:]
 
-    # resampled_source_landmarks, transformed_resampled_source_landmarks, resampled_target_landmarks = warp_resampled_landmarks(source_landmarks, target_landmarks)
+    p_source, p_target, ia_source, ng_source, nr_source, i_u_x, i_u_y, u_x_nr, u_y_nr, warp_resampled_landmarks, warp_original_landmarks, return_dict, initial_resample_ratio = am.anhir_method(source, target)
     
-    imsave('474379_nr.png')
 
+    # Need to use x and y nr transformations on padded rgb channels
+    # parse rgb image to transform
+    rgb_warp = imread(moving_path)
+    target_shape = imread(target_path).shape
+
+    s_resampled = []
+    for channel in range(3):
+        s_resampled.append(resample_single(rgb_warp[:,:,channel], initial_resample_ratio))
+
+    s_resampled = np.stack(s_resampled, axis = -1)
+
+    # conduct preprocess to get padding
+    source, target, t_source, t_target, (source_l_x, source_r_x, source_l_y, source_r_y), (target_l_x, target_r_x, target_l_y, target_r_y) = preprocessing.preprocess(s_resampled[:,:,0], p_target, False)
+
+    rgb_warp_pad = []
+    for channel in range(3):
+        rgb_warp_pad.append(np.pad(s_resampled[:,:,channel], [(source_l_y, source_r_y), (source_l_x, source_r_x)], mode='constant'))
+
+    rgb_warp_pad = np.stack(rgb_warp_pad, axis = -1)
+
+    # size down to post-registration size
+
+    # add padding to be same size as target
+
+    # warp image in each channel
+    for channel in range(3):
+        rgb_warp_pad[:,:,channel] = utils.warp_image(rgb_warp_pad[:,:,channel], u_x_nr, u_y_nr)
+
+    # resize to match input ihc
+    registered_scaled = (resize(rgb_warp_pad, target_shape)* 255).astype(np.uint8)
+
+    outfile = os.path.split(moving_path)[-1]
+
+    # save resized
+    imsave(os.path.join(outdir, 'registered_' + outfile),registered_scaled)
+    
 if __name__ == '__main__':
-    main()
+    # main(target_path =  '/media/volodymyr/1TB_Store_B/Lymphoma_subgrouping/Projects/2023_10_HE_vs_CD10_follicles/data/HE_40x/474067.png',
+    #  moving_path =  '/media/volodymyr/1TB_Store_B/Lymphoma_subgrouping/Projects/2023_10_HE_vs_CD10_follicles/data/CD10_40x/479210.png',
+    #   outdir = 'output')
+    main(target_path = '../data/HE_40x/474067.png', moving_path =  '../data/CD10_40x/479210.png', outdir = '../data/')
+    main(target_path = '../data/HE_40x/474200.png', moving_path =  '../data/CD10_40x/485672.png', outdir = '../data/')
+    main(target_path = '../data/HE_40x/474197.png', moving_path =  '../data/CD10_40x/485758.png', outdir = '../data/')
+    main(target_path = '../data/HE_40x/474173.png', moving_path =  '../data/CD10_40x/485985.png', outdir = '../data/')
