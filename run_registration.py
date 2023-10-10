@@ -66,10 +66,8 @@ def main(target_path, moving_path, outdir = ''):
     imsave(os.path.join(outdir, 'registered_' + outfile),registered_scaled)
     
 if __name__ == '__main__':
-    # main(target_path =  '/media/volodymyr/1TB_Store_B/Lymphoma_subgrouping/Projects/2023_10_HE_vs_CD10_follicles/data/HE_40x/474067.png',
-    #  moving_path =  '/media/volodymyr/1TB_Store_B/Lymphoma_subgrouping/Projects/2023_10_HE_vs_CD10_follicles/data/CD10_40x/479210.png',
-    #   outdir = 'output')
-    main(target_path = '/media/volodymyr/1TB_Store_B/Lymphoma_subgrouping/Projects/2023_10_HE_vs_CD10_follicles/data/HE_40x/474067.png', moving_path =  '/media/volodymyr/1TB_Store_B/Lymphoma_subgrouping/Projects/2023_10_HE_vs_CD10_follicles/data/CD10_40x/479210.png', outdir = 'output')
-    main(target_path = '/media/volodymyr/1TB_Store_B/Lymphoma_subgrouping/Projects/2023_10_HE_vs_CD10_follicles/data/HE_40x/474200.png', moving_path =  '/media/volodymyr/1TB_Store_B/Lymphoma_subgrouping/Projects/2023_10_HE_vs_CD10_follicles/data/CD10_40x/485672.png', outdir = 'output')
-    main(target_path = '/media/volodymyr/1TB_Store_B/Lymphoma_subgrouping/Projects/2023_10_HE_vs_CD10_follicles/data/HE_40x/474197.png', moving_path =  '/media/volodymyr/1TB_Store_B/Lymphoma_subgrouping/Projects/2023_10_HE_vs_CD10_follicles/data/CD10_40x/485758.png', outdir = 'output')
-    main(target_path = '/media/volodymyr/1TB_Store_B/Lymphoma_subgrouping/Projects/2023_10_HE_vs_CD10_follicles/data/HE_40x/474173.png', moving_path =  '/media/volodymyr/1TB_Store_B/Lymphoma_subgrouping/Projects/2023_10_HE_vs_CD10_follicles/data/CD10_40x/485985.png', outdir = 'output')
+    # main(target_path = '/media/volodymyr/1TB_Store_B/Lymphoma_subgrouping/Projects/2023_10_HE_vs_CD10_follicles/data/HE_40x/474067.png', moving_path =  '/media/volodymyr/1TB_Store_B/Lymphoma_subgrouping/Projects/2023_10_HE_vs_CD10_follicles/data/CD10_40x/479210.png', outdir = 'output')
+    # main(target_path = '/media/volodymyr/1TB_Store_B/Lymphoma_subgrouping/Projects/2023_10_HE_vs_CD10_follicles/data/HE_40x/474200.png', moving_path =  '/media/volodymyr/1TB_Store_B/Lymphoma_subgrouping/Projects/2023_10_HE_vs_CD10_follicles/data/CD10_40x/485672.png', outdir = 'output')
+    # main(target_path = '/media/volodymyr/1TB_Store_B/Lymphoma_subgrouping/Projects/2023_10_HE_vs_CD10_follicles/data/HE_40x/474197.png', moving_path =  '/media/volodymyr/1TB_Store_B/Lymphoma_subgrouping/Projects/2023_10_HE_vs_CD10_follicles/data/CD10_40x/485758.png', outdir = 'output')
+    # main(target_path = '/media/volodymyr/1TB_Store_B/Lymphoma_subgrouping/Projects/2023_10_HE_vs_CD10_follicles/data/HE_40x/474173.png', moving_path =  '/media/volodymyr/1TB_Store_B/Lymphoma_subgrouping/Projects/2023_10_HE_vs_CD10_follicles/data/CD10_40x/485985.png', outdir = 'output')
+    # main(target_path = '/media/volodymyr/1TB_Store_B/Lymphoma_subgrouping/Projects/2023_10_HE_vs_CD10_follicles/data/HE_40x/474049.png', moving_path =  '/media/volodymyr/1TB_Store_B/Lymphoma_subgrouping/Projects/2023_10_HE_vs_CD10_follicles/data/CD10_40x/479379.png', outdir = 'output')
