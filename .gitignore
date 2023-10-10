@@ -1,2 +1,4 @@
 
 docker/run_docker.sh
+*.ipynb
+*.png
